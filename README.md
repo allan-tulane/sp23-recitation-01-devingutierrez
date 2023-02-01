@@ -1,7 +1,7 @@
 # CMPS 2200  Recitation 01
 
-**Name (Team Member 1):**_________________________  
-**Name (Team Member 2):**_________________________
+**Name (Team Member 1):** Devin Gutierrez ______________  
+**Name (Team Member 2):**Griffin Olimpio________________
 
 In this recitation, we will investigate asymptotic complexity. Additionally, we will get familiar with the various technologies we'll use for collaborative coding.
 
@@ -50,9 +50,16 @@ We'll compare the running times of `linear_search` and `binary_search` empirical
 
 **TODO: your answer goes here**
 
+The worst case input value for key of linear_search would be
+an integer that is contained at the final index of the list (n-1). This would cause the function to iterate through and search the entire rest of the list before finding the correct value at the last index. The worst case runtime would be O(n). 
+
+The worst case input value for key of binary_search would also be an integer that is at index 0 or index n-1 (at the very beginning or very end of the list). This would cause the function to search and split the list until the list is equal to one, making the maximum number of comparisons before finding the search value. The worst case runtime would be O(log n).
+
 - [ ] 5. Describe the best case input value of `key` for `linear_search`? for `binary_search`? 
 
 **TODO: your answer goes here**
+The best case input value of `key` for `linear_search` would be the first element of the list. If this is the case,the function does not need to loop and finishes after searching the first index.
+The best case input value of `key` for `binary_search` would be the middle element of the list. In this case, no resursion is needed as the function checks the middle element in the base case.
 
 - [ ] 6. Complete the `time_search` function to compute the running time of a search function. Note that this is an example of a "higher order" function, since one of its parameters is another function.
 
@@ -61,12 +68,30 @@ We'll compare the running times of `linear_search` and `binary_search` empirical
 - [ ] 8. Call `print_results(compare_search())` and paste the results here:
 
 **TODO: add your timing results here**
+|        n |   linear |   binary |
+|----------|----------|----------|
+|       10 |    0.004 |    0.005 |
+|      100 |    0.011 |    0.005 |
+|     1000 |    0.104 |    0.009 |
+|    10000 |    1.084 |    0.020 |
+|   100000 |   43.619 |    0.030 |
+|  1000000 |  202.132 |    0.046 |
+| 10000000 | 2007.977 |    0.041 |
 
 - [ ] 9. The theoretical worst-case running time of linear search is $O(n)$ and binary search is $O(log_2(n))$. Do these theoretical running times match your empirical results? Why or why not?
 
 **TODO: your answer goes here**
 
+Yes, these worst-case running times match our compare_search results. You can see as n increases, that the binary search becomes much faster relative to the linear search. When n is smaller, such as n=10, the linear search and binary search runtimes are comparable. However, as n reaches infinity, the linear search time before exponentially larger than binary search.
+
 - [ ] 10. Binary search assumes the input list is already sorted. Assume it takes $\Theta(n^2)$ time to sort a list of length $n$. Suppose you know ahead of time that you will search the same list $k$ times. 
   + What is worst-case complexity of searching a list of $n$ elements $k$ times using linear search? **TODO: your answer goes here**
+      + The worst-case complexity of searching a list of $n$ elements $k$ times using linear search is O(kn).
+    
   + For binary search? **TODO: your answer goes here**
+      + The worst-case complexity of searching a list of $n$ elements $k$ times using binary search is O(klog_2(n)).
   + For what values of $k$ is it more efficient to first sort and then use binary search versus just using linear search without sorting? **TODO: your answer goes here**
+
+k*n is the runtime of using linear search without sorting. klog(base 2)*n + n^2 is the runtime of using binary search after sorting the list. It is more efficient to first sort and then use binary search when: k * n > k * log(base2) + n^2. 
+
+Simplifying this would yield log(base2)*n < k/(log(base2) * n), therefore the crossover value in terms of n when binary search and sorting would become more time efficient would be: k = log(base2) * n + log(base2)
